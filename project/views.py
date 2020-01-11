@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect ,render
 from django.http import HttpResponse
-from .models import Projects
+from .models import Projects,Profile
 from django.contrib import messages
 from django.contrib.auth.models import User
+from .forms import UpdateProfileForm
 
 def home(request):
     current_user = request.user
