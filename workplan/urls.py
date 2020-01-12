@@ -25,7 +25,7 @@ from project import views as user_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('project.urls')),
-    # url(r'^accounts/',include('registration.backends.simple.urls')),
+    url(r'^accounts/',include('registration.backends.simple.urls')),
     path('tinymce/', include('tinymce.urls')),
     path('profile/',user_views.profile,name='profile'),
     path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'),name='logout'),

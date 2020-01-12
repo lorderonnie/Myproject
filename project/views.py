@@ -4,7 +4,7 @@ from .models import Projects,Profile
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import UpdateProfileForm,UserUpdateform
-
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     current_user = request.user

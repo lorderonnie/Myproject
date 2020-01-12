@@ -6,4 +6,4 @@ class ProjectConfig(AppConfig):
 
 
     def ready(self):
-        import instagram.signals
+        import project.signals
