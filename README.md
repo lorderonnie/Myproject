@@ -2,7 +2,8 @@
 #### This is a prototype app built to display and inform others of the diffrent projects one has created.  ,12 January 2020 
 #### By **RONALD MWAMBIA**
 ## Description
-    
+    This is a prototype app that allows  one to review rate and see others projects it is very efficient and one aslo has
+    to login to use the app.It has a profile inbuilt and a rate and review form. 
 ## Setup/Installation Requirements
 * A database for Python and access to Django3
 * WI-FI or bundles to access the internet
@@ -40,5 +41,5 @@ INSTALLATIONS USED:
 ## Support and contact details
   Incase of any other bug contact me via email :rontheking45@gmail.com
 ### License
-This project is under [MIT](https://github.com/lorderonnie/Myproject/master/LICENSE)
+This project is under [MIT](https://github.com/lorderonnie/Myproject/LICENSE)
 Copyright (c)2020 **Ronald mwambia & Moringa School**
