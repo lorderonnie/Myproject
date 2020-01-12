@@ -2,14 +2,18 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 from django import forms
-from .models import Projects,Profile
+from .models import Projects,Profile,Reviews
 
 class NewPostForm(forms.ModelForm):
     class Meta:
         model = Projects
         exclude = ['user']
         
-
+class ReviewsForm(forms.ModelForm):
+    class Meta:
+        model = Reviews
+        fields = ['reviews'
+]
     
 class UpdateProfileForm(forms.ModelForm):
     bio = forms.Textarea()

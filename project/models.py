@@ -52,3 +52,23 @@ class Profile(models.Model):
         profile = cls.objects.filter(user = name)
 
         return  name 
+    
+    
+class Reviews(models.Model):
+    reviews  = models.CharField(max_length=500)
+    date =  models.DateTimeField(auto_now_add=True)
+    project_id = models.ForeignKey(Projects,on_delete= models.CASCADE)       
+    def __str__(self):
+        return self.user
+
+    @classmethod
+    def get_all_reviews(cls,id):
+        reviews = cls.objects.filter(picture_id=id)
+        return reviews
+
+    def save_review(self):
+        self.save()
+
+    def delete_review(self):
+        self.delete()
+          

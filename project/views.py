@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect ,render
 from django.http import HttpResponse
-from .models import Projects,Profile
+from .models import Projects,Profile,Reviews
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import UpdateProfileForm,UserUpdateform,NewPostForm
+from .forms import UpdateProfileForm,UserUpdateform,ReviewsForm,NewPostForm
 from django.contrib.auth.decorators import login_required
 
 def home(request):
@@ -56,3 +56,29 @@ def newpost(request):
         
     return render(request,'start/newpost.html',{'form':form})
 
+
+def review(request,id):
+    
+    if request.method =='POST':
+        project = get_object_or_404(Projects,id =id)
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            projectComment = form.save(commit = False)
+            projectComment.posted_by = request.user
+            project = Projects.objects.get(id = id)
+            projectComment.project_id = project
+            projectComment.save()
+            return redirect('home')
+
+    else:
+        form =CommentForm()
+        image = get_object_or_404(Projects,id =id)
+        id = image.id
+    return render(request,'start/review.html',{"form":form,"id":id})
+
+def review_view(request,id):
+  
+    project = Projects.objects.filter(id=id)
+    reviews = Reviews.objects.filter(project_id = id)
+    return render(request,'review.html',{"project":project,"reviews":reviews})

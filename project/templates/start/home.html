@@ -87,7 +87,7 @@ p{
 <div class="container-fluid" >
 <div class="row" style="margin-left:20px;">
 {% for project in projects %}
-<div class="card mb-3" style="max-width: 430px;background-color:#175676;">
+<div class="card mb-3" style="max-width: 430px;background-color:#000100;">
   <div class="row no-gutters">
   <a href="/project/{{project.id}}">
     <div class="col-md-4">
@@ -97,7 +97,7 @@ p{
       <div class="card-body" style="margin-left:5px;">
         <h5 class="card-title" style="font-size:25px;color:silver;">{{project.name}}</h5>
         <p class="card-text" style="font-size:20px;color:gray;">{{project.details}}</p>
-        <a  href="/" class="btn btn-success">Review</a>
+        <a  href="{% url 'review' project.id %}" class="btn btn-success">Review</a>
         <a  href="/" class="btn btn-danger">Rate</a>
         <p class="card-text"style="color:grey;"><small class="text-muted"></small></p>
       </div>
