@@ -1,17 +1,28 @@
 {% extends 'registration/base.html' %}
+{% load bootstrap4 %}
 {% block content %}
+<style>
 body{
-        background-image:url(https://www.thoughtco.com/thmb/InhniGZMoA2LyleI821OzfANmmQ=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-173404960-56a1348f5f9b58b7d0bd03bd.jpg);
+        background-image:url(https://www.itl.cat/pngfile/big/229-2294273_high-resolution-water-droplet.jpg);
         background-color:#1B2021;
         background-size:cover;
         color:white;
-    }
+}
 h2{
+    position:absolute;
+    top:10%;
+    left:20%;
     font-size:40px;
-    color:silver;
+    color:black;
     font-family: 'Girassol', cursive;
     text-align:center;
 }
+a{
+    position:absolute;
+    top:20%;
+    left:30%;
+}
+</style>
 <body>
 <h2>You have logged out of your account</h2>
 
@@ -21,3 +32,4 @@ h2{
     </small>
 </div>
 </body>
+{% endblock %}

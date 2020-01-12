@@ -7,21 +7,22 @@ from .forms import UpdateProfileForm,UserUpdateform,ReviewsForm,NewPostForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
-
+@login_required(login_url = '/accounts/login/')
 def home(request):
     current_user = request.user
     projects = Projects.get_all_projects()
     users = User.objects.all()
     
     return render(request,'start/home.html',{"projects":projects,"current_user":current_user,"users":users})
-
+@login_required(login_url = '/accounts/login/')
 def profile(request):
     name = request.user
     profile = Profile.get_profile_by_name(name)
     projects= Projects.get_project_by_name(name)
 
     return render(request,"start/profile.html",{"profile":profile,"projects":projects,"name":name})
-    
+
+@login_required(login_url = '/accounts/login/')   
 def updateprofile(request):
    
     if request.method == 'POST':
@@ -36,12 +37,12 @@ def updateprofile(request):
         form1 = UserUpdateform(instance=request.user)
     return render(request,"start/updateprofile.html",{"form":form,"form1":form1})
    
-# @login_required(login_url="/accounts/login/")
+@login_required(login_url="/accounts/login/")
 def logout(request):
   logout(request)
   return redirect('home')
 
-# @login_required(login_url = '/accounts/login/')
+@login_required(login_url = '/accounts/login/')
 def newpost(request):
     if request.method=='POST':
         form = NewPostForm(request.POST,request.FILES)
@@ -56,12 +57,12 @@ def newpost(request):
         form = NewPostForm()
         
     return render(request,'start/newpost.html',{'form':form})
-    
+
 def post_review(request,id):
     
     form = ReveiwForm()
     reviews = Reviews.get_review_by_project_id(id)
-    project = Projects.get_project_by_id(id)
+    project = Project_Post.get_project_by_id(id)
     rates = Rates.get_rates_by_project_id(id)
     desrate = []
     usarate=[]
@@ -81,8 +82,7 @@ def post_review(request,id):
         design = 0
         content = 0
         return render(request,'start/viewinfo.html',{"form":form,"reviews":reviews,"project":project,"project_id":id,"design":design,"usability":usability,"content":content})
-
-
+@login_required(login_url = '/accounts/login/')
 def review(request,id):
     
     if request.method =='POST':
@@ -109,7 +109,7 @@ def review_view(request,id):
     reviews = Reviews.objects.filter(project_id = id)
     return render(request,'start/viewinfo.html',{"project":project,"reviews":reviews})
 
-    
+@login_required(login_url = '/accounts/login/')   
 def post_rate(request,id):
     if request.method=='POST':
         rates = Rates.get_rates_by_project_id(id)
@@ -126,11 +126,26 @@ def post_rate(request,id):
             rate = Rates(design = design,usability = usability,content=content,project_id = project,rate_by=request.user)
             
             rate.save()
-            return redirect('start/viewinfo.html',id)
+            return redirect('home')
+      
+    return render(request,'start/viewinfo.html')    
+    
+@login_required(login_url = '/accounts/login/')
+def search_results(request):
+    if 'name' in request.GET and request.GET["name"]:
+        search_term = request.GET.get("name")
+        searched_name = search_results.search_by_name(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'start/search.html',{"message":message,"name": searched_name})
+
     else:
-        messages.info(request,'all fields are required')
-        return redirect('start/viewinfo.html',id)    
-    
-    
+        message = "You haven't searched for any term"
+        return render(request, 'start/search.html',{"message":message})
+        
+        
+        
+        
+        
     
     
