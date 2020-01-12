@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import UpdateProfileForm,UserUpdateform,ReviewsForm,NewPostForm
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+
 
 def home(request):
     current_user = request.user
@@ -36,7 +38,6 @@ def updateprofile(request):
    
 # @login_required(login_url="/accounts/login/")
 def logout(request):
-  
   logout(request)
   return redirect('home')
 
@@ -55,24 +56,49 @@ def newpost(request):
         form = NewPostForm()
         
     return render(request,'start/newpost.html',{'form':form})
+    
+def post_review(request,id):
+    
+    form = ReveiwForm()
+    reviews = Reviews.get_review_by_project_id(id)
+    project = Projects.get_project_by_id(id)
+    rates = Rates.get_rates_by_project_id(id)
+    desrate = []
+    usarate=[]
+    conrate=[]
+    if rates:
+        for rate in rates:
+            desrate.append(rate.design)
+            usarate.append(rate.usability)
+            conrate.append(rate.content)
+        total = len(desrate)*9
+        design =round(sum(desrate)/total *100,2)
+        usability = round(sum(usarate)/total *100,2)
+        content = round(sum(conrate),2)
+        return render(request,'start/viewinfo.html',{"form":form,"reviews":reviews,"project":project,"project_id":id,"design":design,"usability":usability,"content":content})
+    else:
+        usability=0
+        design = 0
+        content = 0
+        return render(request,'start/viewinfo.html',{"form":form,"reviews":reviews,"project":project,"project_id":id,"design":design,"usability":usability,"content":content})
 
 
 def review(request,id):
     
     if request.method =='POST':
         project = get_object_or_404(Projects,id =id)
-        form = CommentForm(request.POST)
+        form = ReviewsForm(request.POST)
 
         if form.is_valid():
-            projectComment = form.save(commit = False)
-            projectComment.posted_by = request.user
+            projectReviews = form.save(commit = False)
+            projectReviews.posted_by = request.user
             project = Projects.objects.get(id = id)
-            projectComment.project_id = project
-            projectComment.save()
+            projectReviews.project_id = project
+            projectReviews.save()
             return redirect('home')
 
     else:
-        form =CommentForm()
+        form =ReviewsForm()
         image = get_object_or_404(Projects,id =id)
         id = image.id
     return render(request,'start/review.html',{"form":form,"id":id})
@@ -81,4 +107,30 @@ def review_view(request,id):
   
     project = Projects.objects.filter(id=id)
     reviews = Reviews.objects.filter(project_id = id)
-    return render(request,'review.html',{"project":project,"reviews":reviews})
+    return render(request,'start/viewinfo.html',{"project":project,"reviews":reviews})
+
+    
+def post_rate(request,id):
+    if request.method=='POST':
+        rates = Rates.get_rates_by_project_id(id)
+        for rate in rates:
+            if rate.rate_by ==request.user:
+                messages.info(request,'You have already rated the project')
+                return redirect('post-review', id)
+        design = request.POST.get('design')
+        usability = request.POST.get('usability')
+        content = request.POST.get('content')
+        
+        if design and usability and content:
+            project = Project_Post.objects.get(id=id)
+            rate = Rates(design = design,usability = usability,content=content,project_id = project,rate_by=request.user)
+            
+            rate.save()
+            return redirect('start/viewinfo.html',id)
+    else:
+        messages.info(request,'all fields are required')
+        return redirect('start/viewinfo.html',id)    
+    
+    
+    
+    

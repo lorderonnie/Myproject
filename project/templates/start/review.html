@@ -4,11 +4,14 @@
 {% block content %}
 <style>
 body{
-    
+        background-image:url(https://www.setaswall.com/wp-content/uploads/2017/06/Water-Wallpapers-31-1280-x-800.jpg);
+        background-color:#1B2021;
+        background-size:cover;
+        color:white;
 }
 </style>
 <body>
-    <h1 style="margin-top: 100px;font-size:40px">Give a  Honest review please!!!{{current_user}}</h1>
+    <h1 style="margin-top: 100px;font-size:40px;text-align:center;">Give a  Honest review please!!!{{current_user}}</h1>
     <div class="container" style="margin-top :30px">
         <div class="edit">
             <form action="{% url 'review' id %}" method = "POST" enctype="multipart/form-data">
@@ -17,6 +20,7 @@ body{
                 <input type="submit" class="btn btn-primary" >
             </form>
         </div>
-    </div>
+    </div><br><br>
+
 </body>
 {% endblock %}

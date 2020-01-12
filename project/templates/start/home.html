@@ -3,11 +3,13 @@
 {% block content %}
 <style>
 body{
-    background-color:#1B2021;
+        background-image:url(https://images.wallpaperscraft.com/image/fire_flame_dark_background_118191_3415x3415.jpg);
+        background-color:#1B2021;
+        background-size:cover;
 }
 #carousel-example-2{
     width:1296px;
-    height:390px;
+    height:500px;
 }
 h1{
     font-size:45px;
@@ -36,7 +38,7 @@ p{
   <div class="carousel-inner" role="listbox" >
     <div class="carousel-item active">
       <div class="view">
-        <img class="d-block w-100" style=" width:1295px;height:400px;" src="http://cdn.desktopwallpapers4.me/wallpapers/digital-art/1920x1080/3/20848-water-vs-fire-1920x1080-digital-art-wallpaper.jpg"
+        <img class="d-block w-100" style=" width:1295px;height:500px;" src="http://cdn.desktopwallpapers4.me/wallpapers/digital-art/1920x1080/3/20848-water-vs-fire-1920x1080-digital-art-wallpaper.jpg"
           alt="First slide">
         <div class="mask rgba-black-light"></div>
       </div>
@@ -47,7 +49,7 @@ p{
     <div class="carousel-item">
       <!--Mask color-->
       <div class="view">
-        <img class="d-block w-100" style=" width:1295px;height:400px;" src="https://3.bp.blogspot.com/-5Dfuw3noHWo/W_lCRqD8rXI/AAAAAAAABA4/DYf27hu0AyYKKpVWprIxM1XdGu9Xfy6agCHMYCw/s1600/flowers-cherry-blossoms-sakura-light-pink-tree-glow-sweet-flower.jpg" alt="Second slide">
+        <img class="d-block w-100" style=" width:1295px;height:500px;" src="https://3.bp.blogspot.com/-5Dfuw3noHWo/W_lCRqD8rXI/AAAAAAAABA4/DYf27hu0AyYKKpVWprIxM1XdGu9Xfy6agCHMYCw/s1600/flowers-cherry-blossoms-sakura-light-pink-tree-glow-sweet-flower.jpg" alt="Second slide">
         <div class="mask rgba-black-strong"></div>
       </div>
       <div class="carousel-caption">
@@ -58,7 +60,7 @@ p{
     <div class="carousel-item">
       <!--Mask color-->
       <div class="view">
-        <img class="d-block w-100" style=" width:1295px;height:400px;" src="https://media.alienwarearena.com/media/sakura-tree-lava-fantasy-wallpaper-1920x1080.jpg"alt="Third slide">
+        <img class="d-block w-100" style=" width:1295px;height:500px;" src="https://media.alienwarearena.com/media/sakura-tree-lava-fantasy-wallpaper-1920x1080.jpg"alt="Third slide">
         <div class="mask rgba-black-slight"></div>
       </div>
       <div class="carousel-caption">
@@ -87,11 +89,12 @@ p{
 <div class="container-fluid" >
 <div class="row" style="margin-left:20px;">
 {% for project in projects %}
-<div class="card mb-3" style="max-width: 430px;background-color:#000100;">
+<div class="col-md-4">
+<div class="card mb-3" style="max-width: 450px;background-color:#000100;">
   <div class="row no-gutters">
   <a href="/project/{{project.id}}">
     <div class="col-md-4">
-      <img style="margin-left:5px;height:140px;width:140px;"src="{{project.picture.url}}" class="card-img" alt="...">
+      <img style="margin-left:5px;height:160px;width:160px;"src="{{project.picture.url}}" class="card-img" alt="...">
     </div>
     <div class="col-md-8">
       <div class="card-body" style="margin-left:5px;">
@@ -99,10 +102,12 @@ p{
         <p class="card-text" style="font-size:20px;color:gray;">{{project.details}}</p>
         <a  href="{% url 'review' project.id %}" class="btn btn-success">Review</a>
         <a  href="/" class="btn btn-danger">Rate</a>
-        <p class="card-text"style="color:grey;"><small class="text-muted"></small></p>
+        <a style="margin:10px" href="/start/viewinfo" class="btn btn-primary">ViewInfo</a>
+        <p class="card-text"style="color:grey;"><small class="text-muted">Creator:{{project.createdby}}</small><i> on</i> {{project.date_created}}</p>
       </div>
     </div>
   </div>
+</div>
 </div>
 {% endfor %}
 </div>

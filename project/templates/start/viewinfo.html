@@ -1,0 +1,37 @@
+{% extends 'start/base.html'%}
+{% load staticfiles%}
+{% load bootstrap4%}
+{% block content%}
+
+<div class="row" style="margin-left:20px;">
+<h3>1:RATES</h3>
+{% for project in projects %}
+<div class="col-md-4">
+<div class="card mb-3" style="max-width: 300px;background-color:#000100;">
+  <div class="row no-gutters">
+  <a href="/project/{{project.id}}">
+    <div class="col-md-8">
+      <div class="card-body" style="margin-left:5px;">
+        <h5 class="card-title" style="font-size:25px;color:silver;">{{project.name}}</h5>
+        <p class="card-text" style="font-size:20px;color:gray;">{{project.details}}</p>
+            <p><b>reviews</b>  {{reviews.count}}</p>
+            <p><b>design ratings:::</b> {{design}}%</p>
+            <p><b>usability ratings:::</b> {{usability}}%</p>
+            <p><b>content ratings:::</b>{{content}}%</p>
+           
+        <a  href="/" class="btn btn-danger">Rate</a>
+        <a style="margin:10px" href="/" class="btn btn-primary">home</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endfor %}
+</div>
+
+
+
+
+
+
+{% endblock %}

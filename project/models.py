@@ -71,4 +71,21 @@ class Reviews(models.Model):
 
     def delete_review(self):
         self.delete()
+   
+class Rates(models.Model):
+    design = models.IntegerField(default = 1)
+    rate_by = models.ForeignKey(User,on_delete=models.CASCADE)
+    rate_on = models.DateTimeField(auto_now_add=True)
+    project_id = models.ForeignKey(Projects,on_delete=models.CASCADE)
+    content = models.IntegerField(default = 1)
+    usability = models.IntegerField(default = 1)
+    
+    @classmethod
+    def get_rates_by_project_id(cls,id):
+        projects_rates = cls.objects.filter(project_id = id)
+        
+        return projects_rates  
+   
+   
+   
           

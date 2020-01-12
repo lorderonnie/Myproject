@@ -1,0 +1,37 @@
+{% extends 'start/base.html'%} 
+{% block content %}
+<style>
+body{
+        background-image:url(https://data.1freewallpapers.com/download/snowflake-pattern-structure-ice.jpg);
+        background-color:#1B2021;
+        background-size:cover;
+        color:white;
+}
+</style>
+
+
+<body>
+<div class="container"><br><br><br> 
+
+  <div class="row">
+    {% if name%}
+      <h2>Found {{ project.name|length }} of searched term {{message}}</h2>
+    {% else %}
+      <h2> Found 0 names for the search term {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+  {% if name %}
+    {% for name in name %}
+      <div class="col-sm-6 col-md-3">
+          <h1>{{project.name.title}}</h1>
+      </div>
+    {% endfor %}
+  {% endif %}
+  </div>
+</div>
+</body>
+{% endblock%}
