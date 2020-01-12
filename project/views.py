@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import Projects,Profile
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import UpdateProfileForm,UserUpdateform
+from .forms import UpdateProfileForm,UserUpdateform,NewPostForm
 from django.contrib.auth.decorators import login_required
 
 def home(request):
@@ -39,3 +39,20 @@ def logout(request):
   
   logout(request)
   return redirect('home')
+
+# @login_required(login_url = '/accounts/login/')
+def newpost(request):
+    if request.method=='POST':
+        form = NewPostForm(request.POST,request.FILES)
+        if form.is_valid():
+            post=form.save(commit=False)
+            post.user = request.user
+            post.save()
+
+            return redirect('home')
+
+    else:
+        form = NewPostForm()
+        
+    return render(request,'start/newpost.html',{'form':form})
+

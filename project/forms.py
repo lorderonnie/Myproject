@@ -4,6 +4,13 @@ from django.contrib.auth import authenticate
 from django import forms
 from .models import Projects,Profile
 
+class NewPostForm(forms.ModelForm):
+    class Meta:
+        model = Projects
+        exclude = ['user']
+        
+
+    
 class UpdateProfileForm(forms.ModelForm):
     bio = forms.Textarea()
     class Meta:

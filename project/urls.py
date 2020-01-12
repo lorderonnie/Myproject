@@ -9,6 +9,8 @@ urlpatterns = [
     path('', views.home,name='home'),
     path('project/profile/',views.profile,name="profile"),
     url(r'^updateprofile/$',views.updateprofile,name='updateprofile'),
+    url(r'^newpost/',views.newpost,name='newpost'),
+    path('accounts/logout/',views.logout,name = 'logout'),
 
 ]
 if settings.DEBUG:
