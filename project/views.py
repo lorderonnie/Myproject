@@ -3,8 +3,7 @@ from django.http import HttpResponse
 from .models import Projects,Profile
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import UpdateProfileForm
-from .email import send_register_confirm_email
+from .forms import UpdateProfileForm,UserUpdateform
 
 
 def home(request):
@@ -17,9 +16,9 @@ def home(request):
 def profile(request):
     name = request.user
     profile = Profile.get_profile_by_name(name)
-    photos = Photos.get_photos_by_name(name)
+    projects= Projects.get_project_by_name(name)
 
-    return render(request,"profile.html",{"profile":profile,"photos":photos,"name":name})
+    return render(request,"start/profile.html",{"profile":profile,"projects":projects,"name":name})
     
 def updateprofile(request):
    
@@ -33,5 +32,10 @@ def updateprofile(request):
     else:
         form = UpdateProfileForm(instance=request.user.profile)
         form1 = UserUpdateform(instance=request.user)
-    return render(request,"updateprofile.html",{"form":form,"form1":form1})
+    return render(request,"start/updateprofile.html",{"form":form,"form1":form1})
    
+# @login_required(login_url="/accounts/login/")
+def logout(request):
+  
+  logout(request)
+  return redirect('home')

@@ -1,0 +1,24 @@
+{% extends "registration/base.html"%}
+{% load bootstrap4%}
+{% block content %}
+
+
+
+
+<body>
+<h1>SIGN-UP</h1>
+<div id="strand">
+    <form method="POST" action="/accounts/register/" >
+        {% csrf_token%}
+        {% bootstrap_form form %}
+        <input class="btn btn-primary" type="submit">
+    </form>
+    <div>
+        {% for message in messages%}
+            <h3>{{message}}</h3>
+        {% endfor %}
+    </div>
+</div>
+</body>
+
+{% endblock %}
