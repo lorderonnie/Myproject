@@ -4,6 +4,8 @@ from .models import Projects,Profile
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import UpdateProfileForm
+from .email import send_register_confirm_email
+
 
 def home(request):
     current_user = request.user
