@@ -7,6 +7,7 @@ class Projects(models.Model):
     picture = models.ImageField(upload_to= 'media/')
     name = models.CharField(max_length=50)
     details = models.TextField(blank=True)
+    createdby = models.CharField(max_length=50,blank=True)
     date_created =  models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User,on_delete = models.CASCADE)
     
