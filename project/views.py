@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from .forms import UpdateProfileForm,UserUpdateform,ReviewsForm,NewPostForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ProjectSerializer
 
 @login_required(login_url = '/accounts/login/')
 def home(request):
@@ -102,7 +105,7 @@ def review(request,id):
         image = get_object_or_404(Projects,id =id)
         id = image.id
     return render(request,'start/review.html',{"form":form,"id":id})
-
+@login_required(login_url = '/accounts/login/')
 def review_view(request,id):
   
     project = Projects.objects.filter(id=id)
@@ -127,20 +130,26 @@ def post_rate(request,id):
             
             rate.save()
             return redirect('home')
-      
-    return render(request,'start/viewinfo.html')    
+    else:  
+        return render(request,'start/rate.html')    
+    
+@login_required(login_url = '/accounts/login/')
+def rate_view(request,id):
+    project = Projects.objects.filter(id=id)
+    rate = Rates.objects.filter(project_id = id)  
+    return render(request,'start/viewinfo.html',{"project":project,"rates":ratess})
     
 @login_required(login_url = '/accounts/login/')
 def search_results(request):
-    if 'name' in request.GET and request.GET["name"]:
+    if 'project' in request.GET and request.GET['project']:
         search_term = request.GET.get("name")
-        searched_name = search_results.search_by_name(search_term)
-        message = f"{search_term}"
+        searched_projects = Projects.search_project(search_term)
+        message = f'{search_term}'
 
-        return render(request, 'start/search.html',{"message":message,"name": searched_name})
+        return render(request, 'start/search.html',{"message":message,"project": searched_project})
 
     else:
-        message = "You haven't searched for any term"
+        message = "You haven't searched for any term...try again!!!"
         return render(request, 'start/search.html',{"message":message})
         
         

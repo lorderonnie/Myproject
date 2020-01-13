@@ -21,7 +21,12 @@ class Projects(models.Model):
     def get_project_by_name(cls,name):
         projects = cls.objects.filter(name= name)
         return projects       
-     
+    
+    @classmethod
+    def search_project(cls,search_term):
+        searched_project = cls.objects.filter(title = search_term)
+        return searched_project
+             
     def save_project(self):
         self.save()
 
@@ -38,10 +43,6 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} profile'
     
-    def search_user(cls,username):
-        
-        found_user = User.objects.get(user= user)
-
     def save_profile(self):
         
         self.save()
