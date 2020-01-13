@@ -17,6 +17,17 @@ def home(request):
     users = User.objects.all()
     
     return render(request,'start/home.html',{"projects":projects,"current_user":current_user,"users":users})
+
+@login_required(login_url = '/accounts/login/')
+def viewinfo(request):
+    current_user = request.user
+    projects = Projects.get_all_projects()
+    users = User.objects.all()
+    reviews = Reviews.get_all_reviews()
+    rates = Rates.get_rates_by_project_id()
+    
+    return render(request,'start/viewinfo.html',{"projects":projects,"current_user":current_user,"users":users,"reviews":reviews,"rates":rates})
+
 @login_required(login_url = '/accounts/login/')
 def profile(request):
     name = request.user
