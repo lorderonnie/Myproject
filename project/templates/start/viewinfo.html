@@ -2,7 +2,11 @@
 {% load staticfiles%}
 {% load bootstrap4%}
 {% block content%}
+<style>
 
+</style>
+
+<body>
 <div class="row" style="margin-left:20px;">
 <h3>1:RATES</h3>
 {% for project in projects %}
@@ -29,6 +33,8 @@
 {% endfor %}
   
 </div><br><br>
+
+
 <h3>2:REVIEWS</h3>
 <div class="row" style="margin-top: 30px;">    
             <div class="col-md-6" style=" width: 100%; height:400px !important; overflow: auto;font-size: 16px;">
@@ -43,7 +49,7 @@
                 {% endfor%}
     </div>
 
-
+</body>
 
 
 {% endblock %}
