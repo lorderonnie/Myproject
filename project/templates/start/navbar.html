@@ -37,10 +37,10 @@
       </li>
       
     </ul>
-    <form class="form-inline my-2 my-lg-0" style="float:right;">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
-
-      <a href="{% url 'search' %}" class="btn btn-success" >Search</a>
+    <form action='{% url 'search' %}' method='post' class="form-inline my-2 my-lg-0" style="float:right;">
+      {% csrf_token %}
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" name="project" aria-label="Search">
+      <input type='submit' class="btn btn-success">
     </form>
   </div>
 </nav>

@@ -15,8 +15,9 @@ urlpatterns = [
     path('review/view/<int:id>/',views.review_view,name='view'),  
     path('search/',views.search_results,name='search'),
     path('review/project/<int:id>',views.post_review, name='post-review'),
-    path('rate/post/<int:id>',views.post_rate, name='post-rate'),
-    path('rate/view/<int:id>/',views.rate_view,name='view'),  
+    path('post/<int:id>',views.post_rate, name='post-rate'),
+    path('view/<int:id>/',views.rate_view,name='rate_view'), 
+    path('rate/', views.post_rate,name='rates'),  
     path('viewinfo/', views.viewinfo,name='viewinfo'), 
 ]
 if settings.DEBUG:

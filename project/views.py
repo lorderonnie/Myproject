@@ -21,12 +21,12 @@ def home(request):
 @login_required(login_url = '/accounts/login/')
 def viewinfo(request):
     current_user = request.user
-    projects = Projects.get_all_projects()
+    
     users = User.objects.all()
     reviews = Reviews.get_all_reviews()
-    rates = Rates.get_rates_by_project_id()
+    # rates = Rates.get_rates_by_project_id()
     
-    return render(request,'start/viewinfo.html',{"projects":projects,"current_user":current_user,"users":users,"reviews":reviews,"rates":rates})
+    return render(request,'start/viewinfo.html',{"current_user":current_user,"users":users,"reviews":reviews})
 
 @login_required(login_url = '/accounts/login/')
 def profile(request):
@@ -95,7 +95,7 @@ def post_review(request,id):
         usability=0
         design = 0
         content = 0
-        return render(request,'start/viewinfo.html',{"form":form,"reviews":reviews,"project":project,"project_id":id,"design":design,"usability":usability,"content":content})
+        return render(request,'start/rate.html',{"form":form,"reviews":reviews,"project":project,"project_id":id,"design":design,"usability":usability,"content":content})
 @login_required(login_url = '/accounts/login/')
 def review(request,id):
     
@@ -121,7 +121,7 @@ def review_view(request,id):
   
     project = Projects.objects.filter(id=id)
     reviews = Reviews.objects.filter(project_id = id)
-    return render(request,'start/viewinfo.html',{"project":project,"reviews":reviews})
+    return render(request,'start/viewinfo.html',{"project":project,"reviews":reviews,"id":id})
 
 @login_required(login_url = '/accounts/login/')   
 def post_rate(request,id):
@@ -148,17 +148,15 @@ def post_rate(request,id):
 def rate_view(request,id):
     project = Projects.objects.filter(id=id)
     rate = Rates.objects.filter(project_id = id)  
-    return render(request,'start/viewinfo.html',{"project":project,"rates":ratess})
+    return render(request,'start/viewinfo.html',{"project":project,"rates":rates})
     
 @login_required(login_url = '/accounts/login/')
 def search_results(request):
-    if 'project' in request.GET and request.GET['project']:
-        search_term = request.GET.get("name")
+    if 'project' in request.GET and request.GET["project"]:
+        search_term = request.GET.get["project"]
         searched_projects = Projects.search_project(search_term)
-        message = f'{search_term}'
-
-        return render(request, 'start/search.html',{"message":message,"project": searched_project})
-
+        message = f"{search_term}"
+        return render(request, 'start/search.html',{"message":message,"project": searched_projects})
     else:
         message = "You haven't searched for any term...try again!!!"
         return render(request, 'start/search.html',{"message":message})

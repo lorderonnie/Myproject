@@ -1,18 +1,23 @@
-{% extend 'start/base.html' %}
+{% extends 'start/base.html' %}
 {% load bootstrap4 %}
 {% load static %}
 {% block content %}
 <style>
-
+body{
+        background-image:url(https://c4.wallpaperflare.com/wallpaper/948/147/675/dog-animals-siberian-husky-water-wallpaper-preview.jpg);
+        background-color:#1B2021;
+        background-size:cover;
+        color:white;
+}
 </style>
 <body>
 <div class="col-md-6">
         <h2 class="text-center" style="font-size: 35px;">Rate our application according its design,usability and content.</h2>
         <center style="margin-top:40px;">
-
-            <form action="rate/post/{{project_id}}" method="POST">
+       
+            <form action="/post/{{project.id}}" method="POST">
                 {% csrf_token%}
-                <select name="design">
+                <select class="btn btn-danger"name="design">
                     <option name="">Design</option>
                     <option name="" value="0">0</option>
                     <option name="" value="1">1</option>
@@ -26,7 +31,7 @@
                     <option name="" value="9">9</option>
 
                 </select>
-                <select  name="usability">
+                <select class="btn btn-success" name="usability">
                     <option name="">Usability</option>
                     <option name="" value="0">0</option>
                     <option name="" value="1">1</option>
@@ -40,7 +45,7 @@
                     <option name="" value="9">9</option>
 
                 </select >
-                <select name="content">
+                <select class="btn btn-primary" name="content">
                     <option name="">Content</option>
                     <option name="" value="0">0</option>
                     <option name="" value="1">1</option>
@@ -55,7 +60,7 @@
 
                 </select>
 
-                <input type="submit" value="Rate">
+                <input type="submit" class="btn btn-dark" value="Rate">
                 <div class="message">
                     {% for message in messages%}
                         <h3 class="alert-danger">{{message}}</h3>

@@ -24,7 +24,7 @@ class Projects(models.Model):
     
     @classmethod
     def search_project(cls,search_term):
-        searched_project = cls.objects.filter(title = search_term)
+        searched_project = cls.objects.filter(name__icontains=search_term)
         return searched_project
              
     def save_project(self):
@@ -41,7 +41,7 @@ class Profile(models.Model):
     updated_on = models.DateTimeField(auto_now_add=True)
      
     def __str__(self):
-        return f'{self.user.username} profile'
+        return user
     
     def save_profile(self):
         
@@ -58,13 +58,14 @@ class Profile(models.Model):
 class Reviews(models.Model):
     reviews  = models.CharField(max_length=500)
     date =  models.DateTimeField(auto_now_add=True)
-    project_id = models.ForeignKey(Projects,on_delete= models.CASCADE)       
+    project_id = models.ForeignKey(Projects,on_delete= models.CASCADE)
+           
     def __str__(self):
         return self.user
 
     @classmethod
-    def get_all_reviews(cls,id):
-        reviews = cls.objects.filter(picture_id=id)
+    def get_all_reviews(cls):
+        reviews = cls.objects.all()
         return reviews
 
     def save_review(self):

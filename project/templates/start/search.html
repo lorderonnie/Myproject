@@ -14,7 +14,7 @@ body{
 <div class="container"><br><br><br> 
 
   <div class="row">
-    {% if name%}
+    {% if project %}
       <h2>Found {{ project.name|length }} of searched term {{message}}</h2>
     {% else %}
       <h2> Found 0 names for the search term {{message}}</h2>
@@ -24,10 +24,10 @@ body{
 
   <div class="row">
 
-  {% if name %}
-    {% for name in name %}
+  {% if project %}
+    {% for pro in project %}
       <div class="col-sm-6 col-md-3">
-          <h1>{{project.name.title}}</h1>
+          <h1>{{project.name}}</h1>
       </div>
     {% endfor %}
   {% endif %}
