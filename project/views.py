@@ -6,8 +6,6 @@ from django.contrib.auth.models import User
 from .forms import UpdateProfileForm,UserUpdateform,ReviewsForm,NewPostForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from .serializer import ProfileSerializer,ProjectSerializer
 
 @login_required(login_url = '/accounts/login/')
